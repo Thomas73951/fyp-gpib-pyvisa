@@ -22,9 +22,36 @@ print(inst.read())
 
 print("writing freq sweep settings")
 
-inst.write("SENS2:FREQ:STAR 10 MHz;STOP 100 MHz;*OPC?")
+inst.write("SENS2:FREQ:STAR 10 MHz;STOP 100 MHz;*WAI")
 # inst.write("SENS2:FREQ:CENT 30.75 MHz;SPAN 1 MHz;*OPC?")
-print(inst.read())
+# print(inst.read())
+
+inst.write("ABOR;:INIT:CONT OFF;:INIT;*WAI")
+
+
+inst.write("CALC2:MARK:BWID -3;FUNC:RES?")
+result = inst.read()
+# print(result)
+
+result = result.split(',')
+print(result)
+
+inst.write("INIT:CONT ON;*WAI")
+
+print(inst.query(f"SENS2:FREQ:CENT {result[1]} Hz;SPAN 1 MHz;*OPC?"))
+
+inst.write("ABOR;:INIT:CONT OFF;:INIT;*WAI")
+
+inst.write("CALC2:MARK:BWID -3;FUNC:RES?")
+result = inst.read()
+# print(result)
+
+result = result.split(',')
+print(result)
+
+inst.write("INIT:CONT ON;*WAI")
+
+
 
 print(inst.query("*IDN?")) 
 
