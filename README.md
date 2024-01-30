@@ -33,5 +33,5 @@ pyvisa-info
 ### Run 
 
 ```bash
-python main.py
+python <script>.py
 ```
