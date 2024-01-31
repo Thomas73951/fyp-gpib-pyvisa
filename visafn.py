@@ -46,7 +46,7 @@ def resume_sweep(inst):
 
 def measure_peak(inst):
     """Measures -3dB peak of data, 
-    assumes data ready to be measured
+    assumes data ready to be measured, data on meas2 TODO: arg for meas1 or 2
 
     Args:
         inst: device
@@ -54,12 +54,13 @@ def measure_peak(inst):
     Returns:
         list: list of string values as: [BW, CF, Q, Loss] 
         in scientific format: ['+1.00000000000E+006', ...]
+        TODO: fix leaves '\n' on last point
     """
     return inst.query("CALC2:MARK:BWID -3;FUNC:RES?").split(',')
 
 def measure_notch(inst):
     """Measures +3dB notch in data, 
-    assumes data ready to be measured, data on meas1
+    assumes data ready to be measured, data on meas1 TODO: arg for meas1 or 2
 
     Args:
         inst: device
@@ -67,18 +68,19 @@ def measure_notch(inst):
     Returns:
         list: list of string values as: [BW, CF, Q, Loss] 
         in scientific format: ['+1.00000000000E+006', ...]
+        TODO: fix leaves '\n' on last point
     """
     return inst.query("CALC1:MARK:NOTC -3;FUNC:RES?").split(',')
 
 def measure_min(inst):
     """Measures min of data, 
-    assumes data ready to be measured, data on meas1
+    assumes data ready to be measured, data on meas1 TODO: arg for meas1 or 2
 
     Args:
         inst: device
 
     Returns:
-        list: list of string values as: [BW, CF, Q, Loss] 
+        list: list of string values as: [minimum, '\n'] TODO: remove '\n' entirely 
         in scientific format: ['+1.00000000000E+006', ...]
     """
-    return inst.query("CALC1:MARK:MIN;FUNC:RES?")
+    return inst.query("CALC1:MARK:MIN;FUNC:RES?").split('\n')
