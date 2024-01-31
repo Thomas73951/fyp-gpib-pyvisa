@@ -37,14 +37,19 @@ inst.write(f"SENS2:SWE:POIN {NUM_POINTS};*WAI")
 visafn.wait_and_sweep_once(inst)
 
 notch = visafn.measure_notch(inst)
+f0 = notch[1]
 
-minimum = visafn.measure_min(inst)
+minimum = visafn.measure_min(inst)[0]
 
-print(f"Notch at {notch[1]} Hz")
-print(f"Minimum at {minimum[0]} dB")
+print(f"Notch at {f0} Hz")
+print(f"Minimum at {minimum} dB")
 data = inst.query("TRAC? CH1FDATA")
 with open(FOLDER_NAME + os.path.sep + filename_base + "_MEAS1.csv", 'w') as file:
     file.write(data)
+
+with open(FOLDER_NAME + os.path.sep + filename_base + "_info.csv", 'w') as file:
+    file.write("F0, Minimum\n")
+    file.write(f"{f0}, {minimum}")
 
 visafn.resume_sweep(inst)
 
