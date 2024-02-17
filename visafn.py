@@ -70,7 +70,8 @@ def measure_notch(inst):
         in scientific format: ['+1.00000000000E+006', ...]
         TODO: fix leaves '\n' on last point
     """
-    return inst.query("CALC1:MARK:NOTC -3;FUNC:RES?").split(',')
+    # TODO: notch requires specific value, will constantly need to fiddle with it if wrong
+    return inst.query("CALC1:MARK:NOTC -7;FUNC:RES?").split(',')
 
 def measure_min(inst):
     """Measures min of data, 
