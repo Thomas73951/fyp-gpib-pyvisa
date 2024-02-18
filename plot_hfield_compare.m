@@ -5,16 +5,22 @@ close all
 
 % Expects sim files from fastHenryHelper by Thomas Sharratt (c) 2024.
 % Other files may be compatible but need rewriting of "Process sim file" section.
-SIM_FOLDER_NAME = ["C1_T9_ID10_S2.4_W0.4", filesep, "C2_T20_ID0.2_S0.1_W0.03"];
+
+SIM_FOLDER_NAME = ["C1_T5_ID40_S1_W0.4", filesep, "C2_T20_ID0.2_S0.1_W0.03"];
+MEAS_FOLDER_NAME = "Coil A";
+
+
+% Coil C
+##SIM_FOLDER_NAME = ["C1_T9_ID10_S2.4_W0.4", filesep, "C2_T20_ID0.2_S0.1_W0.03"];
+##MEAS_FOLDER_NAME = "Coil C";
+
+
 SIM_FILE_NAME = ["Sweep2_inductances.csv"];
-
-
-MEAS_FOLDER_NAME = "Coil C";
 MEAS_FILE_NAME = "xsweep_0_40_21.csv";
 
 
-LINE_WIDTH = 1.5;
-SAVE_IMG = false;
+LINE_WIDTH = 1;
+SAVE_IMG = true;
 NORMALISED = true; % "normalised", sets axes to 0 -> max for each plot
 
 
@@ -80,7 +86,5 @@ legend('FontSize',11)
 
 if (SAVE_IMG)
   saveImages(["images", filesep],
-              ["overlay_xsweep_", num2str(sweepDetailsMat(1)), "_", ...
-              num2str(sweepDetailsMat(2)), "_", ...
-              num2str(sweepDetailsMat(3)), " "])
+              ["Comparison - ", MEAS_FOLDER_NAME, " "])
 endif
