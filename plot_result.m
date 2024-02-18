@@ -20,5 +20,5 @@ legend()
 grid on
 
 if (SAVE_IMG)
-  saveImages([FOLDER_NAME, filesep])
+  saveImages([FOLDER_NAME, filesep], "")
 endif
