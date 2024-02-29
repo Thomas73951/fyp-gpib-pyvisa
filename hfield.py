@@ -24,16 +24,22 @@ rm = pyvisa.ResourceManager('@py')
 inst = rm.open_resource(DEVICE)
 
 
-START = 0
-STOP = 40
-NUM_POINTS = 21
-FOLDERNAME = "Coil C 2/Hfield/"
-FILENAME = f"xsweep_{START}_{STOP}_{NUM_POINTS}.csv"
+# START = 0
+# STOP = 40
+# NUM_POINTS = 21
+# SWEEP_DIRECTION = 'x'
+# FOLDERNAME = "Coil C/Hfield/"
+# FILENAME = f"{SWEEP_DIRECTION}sweep_{START}_{STOP}_{NUM_POINTS}.csv"
+## setup sweep
+# sweep_points = np.linspace(START,STOP,NUM_POINTS)
 
+SWEEP_DIRECTION = 'z'
+sweep_points = [4, 17, 27, 37, 50, 67, 77, 87] # should be ALL_CAPS but nvm
+FOLDERNAME = "Coil C/Hfield/"
+FILENAME = f"{SWEEP_DIRECTION}sweepx10_{min(sweep_points)}_{max(sweep_points)}_{len(sweep_points)}.csv"
 print("################")
 
-# setup sweep
-sweep_points = np.linspace(START,STOP,NUM_POINTS)
+
 
 # make path if doesn't exist
 Path(FOLDERNAME).mkdir(parents=True, exist_ok=True)
@@ -42,12 +48,12 @@ Path(FOLDERNAME).mkdir(parents=True, exist_ok=True)
 file = open(FOLDERNAME + FILENAME, 'w')
 
 visafn.query_ID(inst)
-visafn.set_freq_start_stop(inst, 10e6, 15e6)
+visafn.set_freq_centre_span(inst, 13.5e6, 5e6)
 visafn.wait_and_sweep_once(inst)
 
 
 for i in sweep_points:
-    input(f"Position probe at {i} mm")
+    input(f"Position probe at {SWEEP_DIRECTION} = {i} mm")
 
     visafn.wait_and_sweep_once(inst)
     result = visafn.measure_peak(inst)
