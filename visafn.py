@@ -4,13 +4,18 @@ Specifically for HP8711C
 """
 
 def query_ID(inst):
+    """Universal function to query connected device ID and print to console
+
+    Args:
+        inst: device
+    """
     print("query IDN:", inst.query("*IDN?"))
 
 def set_freq_start_stop(inst, start, stop):
     """sets frequency range of vna
 
     Args:
-        inst (_type_): device
+        inst: device
         start (string or int, float?): in Hz
         stop (string or int, float?): in Hz
     """
