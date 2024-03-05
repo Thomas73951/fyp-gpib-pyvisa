@@ -30,7 +30,7 @@ visafn.query_ID(inst)
 
 inst.write("WAV:SOURCE CHAN2")
 inst.write("WAV:POINTS:MODE RAW")
-inst.write("WAV:POINTS 5000;*WAI")
+inst.write("WAV:POINTS 10;*WAI")
 inst.write("WAV:FORMAT ASCII")
 
 preamble = inst.query("WAV:PREAMBLE?")
@@ -38,8 +38,9 @@ print(preamble)
 
 if (SAVE_CH2):
     data = inst.query("WAV:DATA?")
+    # print(data[10:])
     with open(FOLDER_NAME + os.path.sep + FILE_NAME + "_CH2.csv", 'w') as file:
-        file.write(data)
+        file.write(data[10:]) # Fixes "#800005599" which appears before the first data point, makes first csv value valid when read back.
     with open(FOLDER_NAME + os.path.sep + FILE_NAME + "_CH2_preamble.csv", 'w') as file:
         file.write(preamble)
 
