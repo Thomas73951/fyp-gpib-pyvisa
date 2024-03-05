@@ -1,0 +1,45 @@
+clear all
+close all
+
+SAVE_IMG = true;
+TITLE = "13.56 MHz sine wave. WAV:POINTS 100";
+CHANNEL = 2;
+FOLDER_NAME = "keysight/sine3"; % file ^ in this folder
+
+
+% read files
+preamble = csvread([FOLDER_NAME, filesep, ...
+                    "data_CH", num2str(CHANNEL), "_preamble.csv"]);
+data = csvread([FOLDER_NAME, filesep, ...
+                    "data_CH", num2str(CHANNEL), ".csv"]);
+
+% decode preamble
+% FORMAT
+% TYPE
+numPoints = preamble(3);
+% COUNT
+timeIncrement = preamble(5);
+timeStart = preamble(6);
+% X other point
+% YINCREMENT - min difference between y values
+% Y not relevant for plotting
+% Y not relevant for plotting
+
+
+timeEnd = timeStart + numPoints * timeIncrement;
+t = linspace(timeStart, timeEnd, numPoints);
+##data = data * amplitudeIncrement;
+
+figure() % Channel plot
+plot(t, data)
+xlabel("Time [s]")
+xlim([min(t), max(t)])
+ylabel("Amplitude [V]")
+title(TITLE)
+grid on
+
+
+
+if (SAVE_IMG)
+  saveImages([FOLDER_NAME, filesep], "")
+endif
