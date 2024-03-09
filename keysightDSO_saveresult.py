@@ -4,6 +4,8 @@ Specifically Keysight DSOX3014A Scope.
 
 Designed for retreiving sweep data as file
 ONLY SETUP FOR CHANNEL 2 MEASUREMENT CURRENTLY
+
+Keysight programming reference: https://www.keysight.com/us/en/assets/9018-06894/programming-guides/9018-06894.pdf
 """
 
 import os
@@ -30,17 +32,23 @@ visafn.query_ID(inst)
 
 inst.write("WAV:SOURCE CHAN2")
 inst.write("WAV:POINTS:MODE RAW")
-inst.write("WAV:POINTS 10;*WAI")
-inst.write("WAV:FORMAT ASCII")
+# see ref doc p1006 for valid options (generally 1,2,5 per decade, eg 2000, maximum with RAW mode 8000000) - value limited by current scope settings, prints amount found below
+# inst.write("WAV:POINTS 100000") # 100k is reasonable maximum, larger works but takes a significant amount of time
+inst.write("WAV:POINTS 8000000")
+inst.write("WAV:FORMAT ASCII;*WAI")
+points_measured = inst.query('ACQ:POINTS?').split('\n')[0] # contains "\n" at end of line, split to remove
+print(f"Scope measurement consists of {points_measured} points") # amount of points captured, may be lower than set value.
 
 preamble = inst.query("WAV:PREAMBLE?")
+print("Scope measurement preamble:")
 print(preamble)
 
 if (SAVE_CH2):
     data = inst.query("WAV:DATA?")
     # print(data[10:])
     with open(FOLDER_NAME + os.path.sep + FILE_NAME + "_CH2.csv", 'w') as file:
-        file.write(data[10:]) # Fixes "#800005599" which appears before the first data point, makes first csv value valid when read back.
+        # Fixes "#800005599" (or similar, represents number of bytes to read) which appears before the first data point, makes first csv value valid when read back.
+        file.write(data[10:])
     with open(FOLDER_NAME + os.path.sep + FILE_NAME + "_CH2_preamble.csv", 'w') as file:
         file.write(preamble)
 
