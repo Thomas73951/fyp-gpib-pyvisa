@@ -10,6 +10,7 @@ Keysight programming reference: https://www.keysight.com/us/en/assets/9018-06894
 
 import os
 from pathlib import Path
+import time
 
 import pyvisa
 import serial
@@ -73,7 +74,7 @@ ser_arduino.close()  # finished with arduino.
 print("Data send complete")
 
 # process and store data
-
+time.sleep(2)
 if (SAVE_DATA):
     print("Saving scope data...")
     data = inst.query("WAV:DATA?")
