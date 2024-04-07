@@ -1,11 +1,9 @@
 """
-Script to interface with https://github.com/xyphro/UsbGpib
-Specifically Keysight DSOX3014A Scope.
+Script to interface with Keysight DSOX3014A Scope with VISA COM instructions
+Keysight programming reference: https://www.keysight.com/us/en/assets/9018-06894/programming-guides/9018-06894.pdf
 
 Designed for retreiving sweep data as file
 ONLY SETUP FOR CHANNEL 2 MEASUREMENT CURRENTLY
-
-Keysight programming reference: https://www.keysight.com/us/en/assets/9018-06894/programming-guides/9018-06894.pdf
 """
 
 import os

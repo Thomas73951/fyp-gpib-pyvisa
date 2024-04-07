@@ -1,11 +1,10 @@
 """
-Script to interface with Keysight DSOX3014A Scope and Arduino uno running the "fyp_reader_control" repo.
+Script to interface with Keysight DSOX3014A Scope and Arduino uno running firmware from the "fyp_reader_control" repo.
+Keysight programming reference: https://www.keysight.com/us/en/assets/9018-06894/programming-guides/9018-06894.pdf
 
 Writes to Arduino (via serial) which produces modulated 13.56 MHz to a reader antenna. This is then recorded by a scope (controlled & processed here)
 
 SCOPE reads on channel 2
-
-Keysight programming reference: https://www.keysight.com/us/en/assets/9018-06894/programming-guides/9018-06894.pdf
 """
 
 import os

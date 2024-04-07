@@ -1,6 +1,6 @@
 """
-Script to interface with https://github.com/xyphro/UsbGpib
-Specifically Keysight DSOX3014A Scope.
+Script to interface with Keysight DSOX3014A Scope with VISA COM instructions
+Keysight programming reference: https://www.keysight.com/us/en/assets/9018-06894/programming-guides/9018-06894.pdf
 
 Tests link. 
 Setup connection to scope with a USB cable to the USB B port on the back labelled "DEVICE"
