@@ -37,6 +37,9 @@ new_result = visafn.measure_peak(inst)
 
 visafn.resume_sweep(inst)
 
+visafn.set_freq_start_stop(inst, 10e6, 100e6)
+# visafn.resume_sweep(inst)
+
 print(f"bw: {result[0]}\nCF: {result[1]}\nQ: {result[2]}\nLoss: {result[3]}")
 
 print("################")
