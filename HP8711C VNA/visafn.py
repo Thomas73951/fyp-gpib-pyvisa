@@ -1,6 +1,9 @@
 """
 helper functions for pyvisa
-Specifically for HP8711C 
+
+Specifically HP8711C RF network analyser.
+Script expects VNA to be connected via a GPIB -> USB device for VISA COM instructions.
+Tested with https://github.com/xyphro/UsbGpib
 """
 
 def query_ID(inst):

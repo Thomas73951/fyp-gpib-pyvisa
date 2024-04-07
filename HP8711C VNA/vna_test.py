@@ -1,6 +1,8 @@
 """
-Script to interface with https://github.com/xyphro/UsbGpib
 Specifically HP8711C RF network analyser.
+Script expects VNA to be connected via a GPIB -> USB device for VISA COM instructions.
+Tested with https://github.com/xyphro/UsbGpib
+
 
 Queries device ID to test link
 """

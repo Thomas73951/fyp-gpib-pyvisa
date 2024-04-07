@@ -1,10 +1,13 @@
 """
-Script to interface with https://github.com/xyphro/UsbGpib
 Specifically HP8711C RF network analyser.
+Script expects VNA to be connected via a GPIB -> USB device for VISA COM instructions.
+Tested with https://github.com/xyphro/UsbGpib
 
 Designed for measuring resonant frequency of a coil:
 - Finds max frequency in large sweep
 - Zooms to peak and remeasures, prints result.
+
+Expects transmission on MEAS2 and to use two conducting loops coupled through the coil under test.
 """
 
 import pyvisa
@@ -18,9 +21,6 @@ rm = pyvisa.ResourceManager('@py')
 inst = rm.open_resource(DEVICE)
 
 
-
-
-
 print("################")
 
 visafn.query_ID(inst)
@@ -30,15 +30,15 @@ visafn.wait_and_sweep_once(inst)
 result = visafn.measure_peak(inst)
 
 visafn.resume_sweep(inst)
-visafn.set_freq_centre_span(inst, result[1], 1e6)
+visafn.set_freq_centre_span(inst, result[1], 1e6) # and zoom in on peak
 visafn.wait_and_sweep_once(inst)
 
-new_result = visafn.measure_peak(inst)
+new_result = visafn.measure_peak(inst) # re-measure
 
 visafn.resume_sweep(inst)
 
 visafn.set_freq_start_stop(inst, 10e6, 100e6)
-# visafn.resume_sweep(inst)
+# visafn.resume_sweep(inst) # opt. resume continuous sweep when finished
 
 print(f"bw: {result[0]}\nCF: {result[1]}\nQ: {result[2]}\nLoss: {result[3]}")
 

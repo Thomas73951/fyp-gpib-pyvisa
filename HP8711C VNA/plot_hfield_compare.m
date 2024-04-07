@@ -1,35 +1,45 @@
 clear all
 close all
 
+% COPY OF plot_hfield.m BUT DOES "COMPARISON" BETWEEN SIMULATION AND EXPERIMENTAL
+
 % TODO: support for more sweeps, curr. x sweep at z = 5mm
+% TODO: fix that experiment was actually 4mm not 5.
 
 % Expects sim files from fastHenryHelper by Thomas Sharratt (c) 2024.
-% Other files may be compatible but need rewriting of "Process sim file" section.
+% Other files may be compatible but need rewriting of "Process sim file" section
+% due to file information location and decoding methods.
+
+% Original frontmatter:
+% Plotting script for use with hfield.py
+% This is used to create plots of H field measurements across x,y or z
+% Takes information from the file name if possible,
+% otherwise: set STANDARD_SWEEP false & enter points in manual point entry (typ used for z sweep)
+% optionally saves figures as images back into FOLDER_NAME.
 
 SIM_FOLDER_NAME = ["C1_T5_ID40_S1_W0.4", filesep, "C2_T20_ID0.2_S0.1_W0.03"];
 MEAS_FOLDER_NAME = "Coil A";
-
-
 % Coil C
 ##SIM_FOLDER_NAME = ["C1_T9_ID10_S2.4_W0.4", filesep, "C2_T20_ID0.2_S0.1_W0.03"];
 ##MEAS_FOLDER_NAME = "Coil C";
 
-
+% should be the same filename for any of the above folders from how it's generated
 SIM_FILE_NAME = ["Sweep2_inductances.csv"];
 MEAS_FILE_NAME = "xsweep_0_40_21.csv";
 
-
+% Other settings:
 LINE_WIDTH = 1;
 SAVE_IMG = true;
 NORMALISED = true; % "normalised", sets axes to 0 -> max for each plot
 
 
-% Process meas file
-measData = csvread([strtrim(MEAS_FOLDER_NAME),filesep, "Hfield", filesep, MEAS_FILE_NAME]);
+% PROCESS MEASURED FILE
+measData = csvread([strtrim(MEAS_FOLDER_NAME), filesep, "Hfield", filesep, ...
+                    MEAS_FILE_NAME]);
 % linearise data
 measData = power(10, measData/20);
 
-% find sweep
+% find sweep from filename
 sweepDetailsCell = strsplit(strtok(MEAS_FILE_NAME,'.'),'_');
 sweepDetailsCell = sweepDetailsCell(2:end);
 sweepDetailsMat = [];
@@ -38,7 +48,7 @@ for i = 1:3
 endfor
 
 
-% Process sim file
+% PROCESS SIMULATION FILE
 simData = csvread([strtrim(SIM_FOLDER_NAME), filesep, SIM_FILE_NAME]);
 sweepX = simData(:,2); % requires comma separated folder name: ".../Offset,x,y/"
 sweepY = simData(:,3);
@@ -64,7 +74,7 @@ hold on
 % Coupling factor plot of sim data
 ##plot(sweepVar, k, SIM_PLOT_MARKER, 'DisplayName', 'Simulated', 'LineWidth', LINE_WIDTH)
 
-[ax, h1, h2] = plotyy(x, measData, sweepVar, k);
+[ax, h1, h2] = plotyy(x, measData, sweepVar, k); % two y axis plot
 set([h1,h2], 'LineWidth', LINE_WIDTH)
 set(h1, 'DisplayName', 'Measured')
 set(h2, 'DisplayName', 'Simulated')
