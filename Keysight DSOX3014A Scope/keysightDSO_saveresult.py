@@ -10,8 +10,9 @@ Keysight programming reference: https://www.keysight.com/us/en/assets/9018-06894
 
 import os
 from pathlib import Path
+
 import pyvisa
-import visafn
+
 
 # Setup
 SAVE_CH2 = True
@@ -28,7 +29,7 @@ print("################")
 # make path if doesn't exist
 Path(FOLDER_NAME + os.path.sep).mkdir(parents=True, exist_ok=True)
 
-visafn.query_ID(inst)
+print("query IDN:", inst.query("*IDN?"))
 
 inst.write("WAV:SOURCE CHAN2")
 inst.write("WAV:POINTS:MODE RAW")

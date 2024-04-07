@@ -15,7 +15,6 @@ import time
 import pyvisa
 import serial
 
-import visafn
 
 # setup (message & serial)
 COM_PORT = "/dev/ttyACM1"
@@ -40,7 +39,7 @@ print("################")
 # make path if doesn't exist
 Path(FOLDER_NAME + os.path.sep).mkdir(parents=True, exist_ok=True)
 
-visafn.query_ID(inst)
+print("query IDN:", inst.query("*IDN?"))
 
 inst.write("WAV:SOURCE CHAN2")
 inst.write("WAV:POINTS:MODE RAW")
