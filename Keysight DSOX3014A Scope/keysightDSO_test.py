@@ -7,7 +7,6 @@ Setup connection to scope with a USB cable to the USB B port on the back labelle
 """
 
 import pyvisa
-import visafn
 
 # setup
 DEVICE = "USB0::2391::6056::MY63080144::0::INSTR" # keysight scope
@@ -18,6 +17,6 @@ inst = rm.open_resource(DEVICE)
 
 print("################")
 
-visafn.query_ID(inst)
+print("query IDN:", inst.query("*IDN?"))
 
 print("################")
