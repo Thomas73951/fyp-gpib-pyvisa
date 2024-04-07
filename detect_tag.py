@@ -23,8 +23,8 @@ SER_MESSAGE = b"AZZXXYZXYZYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYZZXX
 # b'' notation needed ^
 
 # setup (scope & data storage)
-SAVE_DATA = True # on channel 2
-FOLDER_NAME = "keysight/tag_auto"
+SAVE_DATA = False # on channel 2
+FOLDER_NAME = "keysight/tag_5apr/E/CoilA1W/test"#-23/z0/x20/y20/1"
 FILE_NAME = "data"
 DEVICE = "USB0::2391::6056::MY63080144::0::INSTR"  # keysight scope
 # device found with pyvisa-shell, list instead of list_resources()

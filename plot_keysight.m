@@ -1,10 +1,11 @@
 clear all
 close all
 
-SAVE_IMG = true;
-TITLE = "13.56 MHz sine wave. WAV:POINTS 100";
+SAVE_IMG = false;
+##TITLE = "13.56 MHz sine wave. WAV:POINTS 2000";
+TITLE = "Rx from coupler";
 CHANNEL = 2;
-FOLDER_NAME = "keysight/sine3"; % file ^ in this folder
+FOLDER_NAME = "keysight/tag_auto"; % file ^ in this folder
 
 
 % read files

@@ -35,8 +35,8 @@ inst = rm.open_resource(DEVICE)
 
 SWEEP_DIRECTION = 'z'
 sweep_points = [4, 17, 27, 37, 50, 67, 77, 87] # should be ALL_CAPS but nvm
-FOLDERNAME = "Coil C/Hfield/"
-FILENAME = f"{SWEEP_DIRECTION}sweepx10_{min(sweep_points)}_{max(sweep_points)}_{len(sweep_points)}.csv"
+FOLDERNAME = "Coil A/Hfield/"
+FILENAME = f"{SWEEP_DIRECTION}sweepx0_{min(sweep_points)}_{max(sweep_points)}_{len(sweep_points)}.csv"
 print("################")
 
 

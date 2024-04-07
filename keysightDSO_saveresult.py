@@ -15,7 +15,7 @@ import visafn
 
 # Setup
 SAVE_CH2 = True
-FOLDER_NAME = "keysight/sine"
+FOLDER_NAME = "keysight/taglong1"
 FILE_NAME = "data"
 DEVICE = "USB0::2391::6056::MY63080144::0::INSTR"  # keysight scope
 # device found with pyvisa-shell, list instead of list_resources()

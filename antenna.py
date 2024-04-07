@@ -17,7 +17,7 @@ import visafn
 
 # setup
 NUM_POINTS = 801 # max 1601
-FOLDER_NAME = "coilC/5"
+FOLDER_NAME = "coilA1W/3"
 PRECISION = 5 # in significant digits
 DEVICE = "USB0::1003::8293::_HEWLETT-PACKARD_8711C_US36360157_C.04.52::0::INSTR"
 # device found with pyvisa-shell, list instead of list_resources()
