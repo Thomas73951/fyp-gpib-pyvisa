@@ -55,6 +55,7 @@ print("################")
 
 print("query IDN:", inst.query("*IDN?"))
 
+
 def enter_int(msg):
     """input helper - int type.
     Retry until int is entered.
@@ -81,19 +82,21 @@ for point in points:
     print(f"Currently testing x{x}, y{y}, z{z} mm")
 
     continue_test = True
-    while(continue_test):
+    while (continue_test):
         power = enter_int("Enter power level (dBm): ")
 
-        FOLDER_NAME = FOLDER_NAME_BASE + os.path.sep + f"z{z}" + os.path.sep + f"y{y}" + os.path.sep + f"x{x}" + os.path.sep + str(power)
+        FOLDER_NAME = FOLDER_NAME_BASE + os.path.sep + \
+            f"z{z}" + os.path.sep + f"y{y}" + os.path.sep + f"x{x}" + \
+            os.path.sep + str(power)
 
         # make path if doesn't exist
         Path(FOLDER_NAME + os.path.sep).mkdir(parents=True, exist_ok=True)
 
-
         inst.write("WAV:SOURCE CHAN2")
         inst.write("WAV:POINTS:MODE RAW")
         # see ref doc p1006 for valid options (generally 1,2,5 per decade, eg 2000, maximum with RAW mode 8000000) - value limited by current scope settings, prints amount found below
-        inst.write("WAV:POINTS 100000")  # 100k is reasonable maximum, larger works but takes a significant amount of time
+        # 100k is reasonable maximum, larger works but takes a significant amount of time
+        inst.write("WAV:POINTS 100000")
         # inst.write("WAV:POINTS 8000000")
         inst.write("WAV:FORMAT ASCII;*WAI")
         points_measured = inst.query('ACQ:POINTS?').split('\n')[0]  # contains "\n" at end of line, split to remove
@@ -129,7 +132,7 @@ for point in points:
             data = inst.query("WAV:DATA?")
             # print(data[10:])
             with open(FOLDER_NAME + os.path.sep + FILE_NAME + "_CH2.csv", 'w') as file:
-                # Fixes "#800005599" (or similar, represents number of bytes to read) which appears before the first data point, makes first csv value valid when read back.
+                # using [10:] below fixes "#800005599" (or similar, represents number of bytes to read) which appears before the first data point, makes first csv value valid when read back by code.
                 file.write(data[10:])
             with open(FOLDER_NAME + os.path.sep + FILE_NAME + "_CH2_preamble.csv", 'w') as file:
                 file.write(preamble)
@@ -141,7 +144,7 @@ for point in points:
                 continue_test = False
                 point.append(enter_int("Enter minimum detectable power (dBm): "))
                 print(points)
-            
+
 
 print(points)
 

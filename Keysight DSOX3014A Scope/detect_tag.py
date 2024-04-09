@@ -21,7 +21,7 @@ SER_MESSAGE = b"AZZXXYZXYZYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYZZXX
 # b'' notation needed ^
 
 # setup (scope & data storage)
-SAVE_DATA = False # on channel 2
+SAVE_DATA = False  # on channel 2
 FOLDER_NAME = "keysight/tag_5apr/E/CoilA1W/test"#-23/z0/x20/y20/1"
 FILE_NAME = "data"
 DEVICE = "USB0::2391::6056::MY63080144::0::INSTR"  # keysight scope
@@ -43,17 +43,18 @@ print("query IDN:", inst.query("*IDN?"))
 inst.write("WAV:SOURCE CHAN2")
 inst.write("WAV:POINTS:MODE RAW")
 # see ref doc p1006 for valid options (generally 1,2,5 per decade, eg 2000, maximum with RAW mode 8000000) - value limited by current scope settings, prints amount found below
-inst.write("WAV:POINTS 100000") # 100k is reasonable maximum, larger works but takes a significant amount of time
+inst.write("WAV:POINTS 100000")  # 100k is reasonable maximum, larger works but takes a significant amount of time
 # inst.write("WAV:POINTS 8000000")
 inst.write("WAV:FORMAT ASCII;*WAI")
-points_measured = inst.query('ACQ:POINTS?').split('\n')[0] # contains "\n" at end of line, split to remove
-print(f"Scope measurement consists of {points_measured} points") # amount of points captured, may be lower than set value.
+points_measured = inst.query('ACQ:POINTS?').split('\n')[0]  # contains "\n" at end of line, split to remove
+# amount of points captured, may be lower than set value.
+print(f"Scope measurement consists of {points_measured} points")
 
 preamble = inst.query("WAV:PREAMBLE?")
 print("Scope measurement preamble:")
 print(preamble)
 
-inst.write("SINGLE") # scope mode single, waiting for trigger...
+inst.write("SINGLE")  # scope mode single, waiting for trigger...
 
 # Send data
 print("################")
@@ -78,7 +79,7 @@ if (SAVE_DATA):
     data = inst.query("WAV:DATA?")
     # print(data[10:])
     with open(FOLDER_NAME + os.path.sep + FILE_NAME + "_CH2.csv", 'w') as file:
-        # Fixes "#800005599" (or similar, represents number of bytes to read) which appears before the first data point, makes first csv value valid when read back.
+        # using [10:] below fixes "#800005599" (or similar, represents number of bytes to read) which appears before the first data point, makes first csv value valid when read back by code.
         file.write(data[10:])
     with open(FOLDER_NAME + os.path.sep + FILE_NAME + "_CH2_preamble.csv", 'w') as file:
         file.write(preamble)

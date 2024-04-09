@@ -46,7 +46,7 @@ if (SAVE_CH2):
     data = inst.query("WAV:DATA?")
     # print(data[10:])
     with open(FOLDER_NAME + os.path.sep + FILE_NAME + "_CH2.csv", 'w') as file:
-        # Fixes "#800005599" (or similar, represents number of bytes to read) which appears before the first data point, makes first csv value valid when read back.
+        # using [10:] below fixes "#800005599" (or similar, represents number of bytes to read) which appears before the first data point, makes first csv value valid when read back by code.
         file.write(data[10:])
     with open(FOLDER_NAME + os.path.sep + FILE_NAME + "_CH2_preamble.csv", 'w') as file:
         file.write(preamble)

@@ -1,6 +1,11 @@
 clear all
 close all
 
+% Code for processing data from detect_tag.py
+% FIXME: needs polish
+% Processes by filtering (BPF for top sub-carrier), crops (in time) for tag response
+% shows time domain and fft plots at various stages.
+
 pkg load ltfat
 pkg load signal
 
