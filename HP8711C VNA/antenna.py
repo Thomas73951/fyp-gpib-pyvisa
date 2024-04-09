@@ -18,7 +18,7 @@ import visafn
 
 
 # setup
-NUM_POINTS = 801  # max 1601
+NUM_POINTS = 1601  # max 1601
 FOLDER_NAME = "coilA1W/3"  # without final filesep
 PRECISION = 5  # in significant digits
 
@@ -36,7 +36,7 @@ Path(FOLDER_NAME).mkdir(parents=True, exist_ok=True)
 print("################")
 
 visafn.query_ID(inst)
-visafn.set_freq_start_stop(inst, 5e6, 20e6)
+visafn.set_freq_start_stop(inst, 10e6, 17e6)
 
 inst.write(f"FORM:DATA ASC,{PRECISION}")
 inst.write(f"SENS2:SWE:POIN {NUM_POINTS};*WAI")
@@ -46,6 +46,11 @@ visafn.wait_and_sweep_once(inst)
 # temp result (zoomed out, remeasured zoomed in)
 notch = visafn.measure_notch(inst)
 f0 = notch[1]
+
+# zoom in and remeasure.
+visafn.resume_sweep(inst)
+visafn.set_freq_centre_span(inst, 13.5e6, 2e6)
+visafn.wait_and_sweep_once(inst)
 
 # save 5-20 MHz data to CSV
 data = inst.query("TRAC? CH1FDATA")
