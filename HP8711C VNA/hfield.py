@@ -10,10 +10,10 @@ Designed for measuring H field of a tuned antenna:
 Expects antenna connected to port 1, probe connected to port 2, and MEAS2 = transmission
 """
 
-# import os
+import os
 from pathlib import Path
 
-# import numpy as np
+import numpy as np
 import pyvisa
 
 import visafn
@@ -26,20 +26,20 @@ rm = pyvisa.ResourceManager('@py')
 inst = rm.open_resource(DEVICE)
 
 # for "STANDARD_SWEEP"
-# START = 0
-# STOP = 40
-# NUM_POINTS = 21
-# SWEEP_DIRECTION = 'x'
-# FOLDERNAME = "Coil C/Hfield/"
-# FILENAME = f"{SWEEP_DIRECTION}sweep_{START}_{STOP}_{NUM_POINTS}.csv"
+START = 0
+STOP = 25
+NUM_POINTS = 6
+SWEEP_DIRECTION = 'x'
+FOLDERNAME = "tw/hfield/Coil A/2_1_3/2/"
+FILENAME = f"{SWEEP_DIRECTION}sweep_{START}_{STOP}_{NUM_POINTS}.csv"
 # setup sweep
-# sweep_points = np.linspace(START,STOP,NUM_POINTS)
+sweep_points = np.linspace(START,STOP,NUM_POINTS)
 
 # for manual point entry
-SWEEP_DIRECTION = 'z'
-sweep_points = [4, 17, 27, 37, 50, 67, 77, 87]  # should be ALL_CAPS but nvm
-FOLDERNAME = "Coil A/Hfield/"
-FILENAME = f"{SWEEP_DIRECTION}sweepx0_{min(sweep_points)}_{max(sweep_points)}_{len(sweep_points)}.csv"
+# SWEEP_DIRECTION = 'z'
+# sweep_points = [4, 17, 27, 37, 50, 67, 77, 87]  # should be ALL_CAPS but nvm
+# FOLDERNAME = "tw/hfield/Coil A/B/"
+# FILENAME = f"{SWEEP_DIRECTION}sweepx0_{min(sweep_points)}_{max(sweep_points)}_{len(sweep_points)}.csv"
 print("################")
 
 
@@ -50,7 +50,7 @@ Path(FOLDERNAME).mkdir(parents=True, exist_ok=True)
 file = open(FOLDERNAME + FILENAME, 'w')
 
 visafn.query_ID(inst)
-visafn.set_freq_centre_span(inst, 13.5e6, 5e6)  # frequency setup settings.
+visafn.set_freq_centre_span(inst, 13.5e6, 10e6)  # frequency setup settings.
 visafn.wait_and_sweep_once(inst)
 
 
