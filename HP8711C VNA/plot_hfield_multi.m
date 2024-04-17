@@ -16,18 +16,24 @@ SAVE_IMG = true;
 SWEEP_TYPE = 'z'; % for correct x axis name of plots
 % FILE_NAME in format: "..._START_STOP_POINTS.csv" for linspace (STANDARD_SWEEP)
 ##FILE_NAME = "xsweep_0_40_21.csv";
-FILE_NAME = ["zsweepx0_4_87_8.csv";
-             "zsweepx10_4_87_8.csv";
-             "zsweepx20_4_87_8.csv"];
+##FILE_NAME = ["zsweepx0_4_87_8.csv";
+##             "zsweepx10_4_87_8.csv";
+##             "zsweepx20_4_87_8.csv"];
+FILE_NAME = "xsweep_0_25_6.csv";
 ##FOLDER_NAME = ["Coil A";
 ##               "Coil C"];
-FOLDER_NAME = ["Coil A"];
+##FOLDER_NAME = ["Coil A"];
 ##               "Coil C 2"];
 ##               "Coil C 3"];
-STANDARD_SWEEP = false; % true if using linspace, false if arbitrary list of points
+FOLDER_NAME = ["tw/hfield/Coil A/B";
+               "tw/hfield/Coil A/2_1/2";
+               "tw/hfield/Coil A/2_1_3/2"];
+
+STANDARD_SWEEP = true; % true if using linspace, false if arbitrary list of points
 % if not, fill in x below accordingly
 ##TITLE = "Plot of H Field strength for different probe positions (y ~ 0 mm, z ~4 mm)";
-TITLE = "Z sweep measurement of coil A at x = 0, 10, 20 mm"; % figure titles
+##TITLE = "Z sweep measurement of coil A at x = 0, 10, 20 mm"; % figure titles
+TITLE = "X sweep measurement of coil A(#2) at z = 4 mm\nSingle & Chain of #2, #1"; % figure titles
 
 
 if (STANDARD_SWEEP)
@@ -54,7 +60,9 @@ hold on
 
 for i = 1:size(FOLDER_NAME,1) % multiple folders
   for j = 1:size(FILE_NAME,1) % multiple files
-    data = csvread([strtrim(FOLDER_NAME(i,:)),filesep, "Hfield", filesep, ...
+##    data = csvread([strtrim(FOLDER_NAME(i,:)),filesep, "Hfield", filesep, ...
+##                    strtrim(FILE_NAME(j,:))]);
+    data = csvread([strtrim(FOLDER_NAME(i,:)),filesep, ...
                     strtrim(FILE_NAME(j,:))]);
 
     plot(x, power(10, data/20), '-x', ...
@@ -66,7 +74,7 @@ xlabel([SWEEP_TYPE, " [mm]"])
 ylabel("Transmission (S_{21}) representing H field - Linearised")
 title(TITLE)
 grid on
-legend('FontSize',11, 'Interpreter', 'none')
+legend('location', 'southwest', 'Interpreter', 'none') #'FontSize',11,
 
 
 if (SAVE_IMG)

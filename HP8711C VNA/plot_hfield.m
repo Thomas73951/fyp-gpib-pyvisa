@@ -7,12 +7,16 @@ close all
 % otherwise: set STANDARD_SWEEP false & enter points in manual point entry (typ used for z sweep)
 % optionally saves figures as images back into FOLDER_NAME.
 
-SAVE_IMG = false;
-SWEEP_TYPE = 'z'; % for correct x axis name of plots
-TITLE = "Z sweep measurement of coil C at x = 0 mm"; % figure titles
-FILE_NAME = "zsweep_4_87_8.csv"; % in format "..._START_STOP_POINTS.csv" for linspace
-FOLDER_NAME = "Coil C/Hfield"; % file ^ in this folder
-STANDARD_SWEEP = false; % true if using linspace, false if arbitrary list of points
+SAVE_IMG = true;
+SWEEP_TYPE = 'x'; % for correct x axis name of plots
+##TITLE = "Z sweep measurement of coil C at x = 0 mm"; % figure titles
+##TITLE = "X sweep measurement of TW coil A(#2) at z = 4 mm"; % figure titles
+TITLE = "X sweep measurement of TW coil A(#2) at z = 4 mm\nChain of #2, #1"; % figure titles
+##FILE_NAME = "zsweep_4_87_8.csv"; % in format "..._START_STOP_POINTS.csv" for linspace
+FILE_NAME = "xsweep_0_25_6.csv"; % in format "..._START_STOP_POINTS.csv" for linspace
+##FOLDER_NAME = "tw/hfield/Coil A/B"; % file ^ in this folder
+FOLDER_NAME = "tw/hfield/Coil A/2_1/2"; % file ^ in this folder
+STANDARD_SWEEP = true; % true if using linspace, false if arbitrary list of points
 % if not, fill in x below accordingly
 
 if (STANDARD_SWEEP)
