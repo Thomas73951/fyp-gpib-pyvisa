@@ -9,6 +9,7 @@ close all
 pkg load ltfat
 pkg load signal
 
+SAVE_IMG = true;
 SHOW_FIGURES = true;
 ##FOLDER_NAME = ["keysight/tag_auto/coilC_tinytag_hpamp_15dbm/", ...
 ##               "z23/x0"];
@@ -86,10 +87,11 @@ data = filter(b,a,data);
 
 ##if (SHOW_FIGURES)
   figure() % Channel plot
-  plot(t, data)
-  xlabel("Time [s]")
-  xlim([min(t), max(t)])
-  ylabel("Amplitude [V]")
+  plot(t/1e-3, data/1e-3)
+  xlabel("Time [ms]")
+  xlim([min(t), max(t)]/1e-3)
+  ylim([-60 60]) % (in mV)
+  ylabel("Amplitude [mV]")
   grid on
 ##endif
 
@@ -126,10 +128,17 @@ data = data(tagRx1(1):tagRx1(2));
 dataFFT = fft(data);
 if (SHOW_FIGURES)
   figure()
-  plotfft(dataFFT, fs)
+  plotfft(dataFFT, fs/1e6)
   ##xlim([0 100e6])
 ##  xlim([10e6 17e6])
-  xlim([subcarrierFreq-0.5e6, subcarrierFreq+0.5e6])
+  xlim([subcarrierFreq-0.5e6, subcarrierFreq+0.5e6]/1e6)
   grid on
   ylim([-60 40])
+  xlabel("Frequency [MHz]")
+  ylabel("Magnitude [dB]")
+endif
+
+%% save figures?
+if (SAVE_IMG)
+  saveImages(FOLDER_NAME, "");
 endif
