@@ -10,7 +10,7 @@ close all
 % Takes information from the file name if possible,
 % otherwise: set STANDARD_SWEEP false & enter points in manual point entry (typ used for z sweep)
 % optionally saves figures as images back into FOLDER_NAME.
-
+figure()
 
 SAVE_IMG = true;
 SWEEP_TYPE = 'z'; % for correct x axis name of plots
@@ -20,6 +20,7 @@ SWEEP_TYPE = 'z'; % for correct x axis name of plots
 ##             "zsweepx10_4_87_8.csv";
 ##             "zsweepx20_4_87_8.csv"];
 FILE_NAME = "xsweep_0_25_6.csv";
+PRINT_FILE_NAME = false;
 ##FOLDER_NAME = ["Coil A";
 ##               "Coil C"];
 ##FOLDER_NAME = ["Coil A"];
@@ -27,13 +28,14 @@ FILE_NAME = "xsweep_0_25_6.csv";
 ##               "Coil C 3"];
 FOLDER_NAME = ["tw/hfield/Coil A/B";
                "tw/hfield/Coil A/2_1/2";
-               "tw/hfield/Coil A/2_1_3/2"];
+               "tw/hfield/Coil A/2_1_3/2";
+               "tw/hfield/Coil A/pcb1"];
 
 STANDARD_SWEEP = true; % true if using linspace, false if arbitrary list of points
 % if not, fill in x below accordingly
 ##TITLE = "Plot of H Field strength for different probe positions (y ~ 0 mm, z ~4 mm)";
 ##TITLE = "Z sweep measurement of coil A at x = 0, 10, 20 mm"; % figure titles
-TITLE = "X sweep measurement of coil A(#2) at z = 4 mm\nSingle & Chain of #2, #1"; % figure titles
+TITLE = "X sweep measurement of coil A(#2)\nat z = 4 mm";#\nSingle & Chain of #2, #1"; % figure titles
 
 
 if (STANDARD_SWEEP)
@@ -65,13 +67,18 @@ for i = 1:size(FOLDER_NAME,1) % multiple folders
     data = csvread([strtrim(FOLDER_NAME(i,:)),filesep, ...
                     strtrim(FILE_NAME(j,:))]);
 
-    plot(x, power(10, data/20), '-x', ...
-         'DisplayName', [FOLDER_NAME(i,:), ' - ', FILE_NAME(j,:)])
+    if (PRINT_FILE_NAME)
+      plot(x, power(10, data/20), '-x', ...
+           'DisplayName', [FOLDER_NAME(i,:), ' - ', FILE_NAME(j,:)])
+    else
+      plot(x, power(10, data/20), '-x', ...
+           'DisplayName', [FOLDER_NAME(i,:)])
+    endif
   endfor
 endfor
 
 xlabel([SWEEP_TYPE, " [mm]"])
-ylabel("Transmission (S_{21}) representing H field - Linearised")
+ylabel("Relative H Field []")
 title(TITLE)
 grid on
 legend('location', 'southwest', 'Interpreter', 'none') #'FontSize',11,

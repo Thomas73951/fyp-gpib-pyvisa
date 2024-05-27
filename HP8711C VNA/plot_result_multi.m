@@ -9,13 +9,23 @@ SAVE_IMG = true;
 START_FREQ = 10e6;
 STOP_FREQ = 17e6;
 MEAS = ["2";"1"];
+## tw line stuff
 ##FOLDER_NAME = ["Coil C", filesep, "5"]; % file ^ in this folder
-FOLDER_NAME_BASE = ["tw", filesep, "line", filesep, "Coil A"]; % no final filesep
-FOLDER_NAME = ["2";
-               "2_1";
-               "2_1_3"]; % no final filesep
+##FOLDER_NAME_BASE = ["tw", filesep, "line", filesep, "Coil A"]; % no final filesep
+##FOLDER_NAME = ["2";
+##               "2_1";
+##               "2_1_3"]; % no final filesep
+##FOLDER_NAME_EXT = ["1"]; % no final filesep
+##SAVE_FOLDER = ["tw/line/Coil A/images"];
+
+## initial quasi testing
+FOLDER_NAME_BASE = ["tw"]; % no final filesep
+FOLDER_NAME = ["line/Coil A/2_1_3_4";
+               "quasi/22apr/2x2"];
+##               "2_1";
+##               "2_1_3"]; % no final filesep
 FOLDER_NAME_EXT = ["1"]; % no final filesep
-SAVE_FOLDER = ["tw/line/Coil A/images"];
+SAVE_FOLDER = ["tw/quasi/22apr/2x2/images"];
 
 
 for i = 1:rows(FOLDER_NAME)
