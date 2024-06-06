@@ -9,12 +9,22 @@ close all
 pkg load ltfat
 pkg load signal
 
-SAVE_IMG = true;
+SAVE_IMG = false;
 SHOW_FIGURES = true;
-##FOLDER_NAME = ["keysight/tag_auto/coilC_tinytag_hpamp_15dbm/", ...
-##               "z23/x0"];
-FOLDER_NAME = ["keysight/tag_4apr/E/CoilA1W/2/", ...
-               "z23/y0/x0/3"];
+##FOLDER_NAME = ["keysight/tag_auto/coilA_tinytag_hpamp_15dbm/z0/x15"];
+##FOLDER_NAME = ["keysight/tw/20may/quasi/3x3narrow/E9/2"];
+##FOLDER_NAME = ["keysight/tw/20may/quasi/3x3wide/E1/1"];
+##FOLDER_NAME = ["keysight/haidar/bjt/z4/y0/x0/-6/1"];
+FOLDER_NAME = ["keysight/tag_4apr/E/CoilA1W/2/z0/y15/x15/-6"]; % huge response (-16 possible)
+FOLDER_NAME = ["keysight/tag_4apr/E/CoilA1W/2/z13/y0/x15/-4"]; % hard time domain, clear in fft
+FOLDER_NAME = ["keysight/tag_4apr/E/CoilA1W/2/z0/y0/x0/-9"]; % power limited good
+FOLDER_NAME = ["keysight/tag_4apr/E/CoilA1W/2/z0/y0/x0/-10"]; % power limited not quite
+FOLDER_NAME = ["keysight/tag_4apr/E/CoilA1W/2/z13/y0/x20/1"]; % noise limited
+
+
+
+##FOLDER_NAME = ["keysight/tw/16apr/9", ...
+##               ];
 carrierFreq = 13.56e6;
 dataRate = carrierFreq / 128;
 tData = 1 / dataRate;
@@ -90,9 +100,10 @@ data = filter(b,a,data);
   plot(t/1e-3, data/1e-3)
   xlabel("Time [ms]")
   xlim([min(t), max(t)]/1e-3)
-  ylim([-60 60]) % (in mV)
+  ylim([-40 40]) % (in mV)
   ylabel("Amplitude [mV]")
   grid on
+  title("Filtered Time Domain")
 ##endif
 
 % uncropped FFT
@@ -128,14 +139,15 @@ data = data(tagRx1(1):tagRx1(2));
 dataFFT = fft(data);
 if (SHOW_FIGURES)
   figure()
-  plotfft(dataFFT, fs/1e6)
+  plotfft(dataFFT * 2 / length(dataFFT), fs/1e6, 'posfreq')
   ##xlim([0 100e6])
 ##  xlim([10e6 17e6])
   xlim([subcarrierFreq-0.5e6, subcarrierFreq+0.5e6]/1e6)
   grid on
-  ylim([-60 40])
+  ylim([-120 -40])
   xlabel("Frequency [MHz]")
   ylabel("Magnitude [dB]")
+  title("FFT of Response")
 endif
 
 %% save figures?
