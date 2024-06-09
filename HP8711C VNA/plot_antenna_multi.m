@@ -19,7 +19,7 @@ f = linspace(12.5, 14.5, 1601)*1e6;
 for i = 1:rows(FOLDER_NAME)
 
   data = csvread([FOLDER_NAME_BASE, filesep, strtrim(FOLDER_NAME(i,:)), ...
-                  filesep, FOLDEAME_EXT, filesep, FILE_NAME]);
+                  filesep, FOLDER_NAME_EXT, filesep, FILE_NAME]);
 
   minData = min(data);
   minIdx = find(data == minData);
@@ -33,8 +33,9 @@ for i = 1:rows(FOLDER_NAME)
 endfor
 
 xlabel("Frequency [MHz]")
-ylabel("Scattering Parameter [dB]")
+ylabel("Amplitude [dB]")
 xlim([min(f), max(f)]/1e6)
+ylim([-35 -5])
 ##ylim([-60 0])
 title(TITLE)
 legend('location', 'southwest')
