@@ -10,7 +10,7 @@ close all
 % used for quasi, plots on same figure
 
 
-SAVE_IMG = false;
+SAVE_IMG = true;
 START_FREQ = 10e6;
 STOP_FREQ = 17e6;
 PLOT_SIMULATED = true;
@@ -47,7 +47,7 @@ FOLDER_NAME = [%"line/Coil A/2_1_3_4";
 ##               "quasi/27apr/3x3/adaptor/medium";
                "quasi/27apr/3x3/adaptor/small"];
 FOLDER_NAME_EXT = ["1"]; % no final filesep
-SAVE_FOLDER = ["tw/quasi/27apr/images"];
+SAVE_FOLDER = ["tw/images"];
 ##TITLE = "Effect of Antenna Interaction";
 TITLE = "Antenna Configurations";
 LEGEND_EXT = [%"1 x 4, no interaction"; %"1 x 4, no interaction, simulated";

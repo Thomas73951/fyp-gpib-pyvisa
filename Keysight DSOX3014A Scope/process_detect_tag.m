@@ -9,17 +9,18 @@ close all
 pkg load ltfat
 pkg load signal
 
-SAVE_IMG = false;
+SAVE_IMG = true;
 SHOW_FIGURES = true;
 ##FOLDER_NAME = ["keysight/tag_auto/coilA_tinytag_hpamp_15dbm/z0/x15"];
 ##FOLDER_NAME = ["keysight/tw/20may/quasi/3x3narrow/E9/2"];
 ##FOLDER_NAME = ["keysight/tw/20may/quasi/3x3wide/E1/1"];
+FOLDER_NAME = ["keysight/tw/20may/quasi/3x3wide/E9/2"];
 ##FOLDER_NAME = ["keysight/haidar/bjt/z4/y0/x0/-6/1"];
-FOLDER_NAME = ["keysight/tag_4apr/E/CoilA1W/2/z0/y15/x15/-6"]; % huge response (-16 possible)
-FOLDER_NAME = ["keysight/tag_4apr/E/CoilA1W/2/z13/y0/x15/-4"]; % hard time domain, clear in fft
-FOLDER_NAME = ["keysight/tag_4apr/E/CoilA1W/2/z0/y0/x0/-9"]; % power limited good
-FOLDER_NAME = ["keysight/tag_4apr/E/CoilA1W/2/z0/y0/x0/-10"]; % power limited not quite
-FOLDER_NAME = ["keysight/tag_4apr/E/CoilA1W/2/z13/y0/x20/1"]; % noise limited
+##FOLDER_NAME = ["keysight/tag_4apr/E/CoilA1W/2/z0/y15/x15/-6"]; % huge response (-16 possible)
+##FOLDER_NAME = ["keysight/tag_4apr/E/CoilA1W/2/z13/y0/x15/-4"]; % hard time domain, clear in fft
+##FOLDER_NAME = ["keysight/tag_4apr/E/CoilA1W/2/z0/y0/x0/-9"]; % power limited good
+##FOLDER_NAME = ["keysight/tag_4apr/E/CoilA1W/2/z0/y0/x0/-10"]; % power limited not quite
+##FOLDER_NAME = ["keysight/tag_4apr/E/CoilA1W/2/z13/y0/x20/1"]; % noise limited
 
 
 
@@ -103,7 +104,8 @@ data = filter(b,a,data);
   ylim([-40 40]) % (in mV)
   ylabel("Amplitude [mV]")
   grid on
-  title("Filtered Time Domain")
+##  title("Filtered Time Domain")
+  title("Element 9: (0, 0, 0)")
 ##endif
 
 % uncropped FFT
