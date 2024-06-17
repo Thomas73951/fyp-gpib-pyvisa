@@ -1,4 +1,4 @@
-# Keysight DSOX3014A Oscilloscope
+# HP8711C VNA
 
 This folder contains Python scripts for controlling a HP 8711C vector network analyser (VNA). Additionally, GNU Octave (FOSS version of MATLAB) scripts are provided which are used for processing and plotting oscilloscope data.
 

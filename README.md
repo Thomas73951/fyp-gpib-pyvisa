@@ -2,14 +2,14 @@
 
 This repo contains scripts for automating specific tasks on various instruments. It communicates to instruments using [VISA](https://en.wikipedia.org/wiki/Virtual_instrument_software_architecture) which is a standard for communication compatible over several mediums including USB, [GPIB](https://en.wikipedia.org/wiki/GPIB), and TCP/IP.
 
-This uses the [pyvisa](https://pyvisa.readthedocs.io/en/latest/) Python library, with the [pyvisa-py](https://pyvisa.readthedocs.io/projects/pyvisa-py/en/latest/) VISA backend. Both a functional frontend and backend are required for communication. See [alternative backends](#alternative-backends) for more information.
+This uses the [pyvisa](https://pyvisa.readthedocs.io/en/latest/) Python library, with the [pyvisa-py](https://pyvisa.readthedocs.io/projects/pyvisa-py/en/latest/) VISA backend. Both a functional frontend and backend are required for communication. See [alternative backends](#alternative-backends) below for more information.
 
 
 ## Devices Used
 
 This includes syntax for use with the following (see links for code):
-- [Keysight DSOX3014A Oscilloscope](Keysight%20DSOX3014A%20Scope/README.md)
-- [HP 8711C VNA](HP8711C%20VNA/README.md) (with an [adaptor](https://github.com/xyphro/UsbGpib) to convert the GPIB interface to a USB one)
+- [Keysight DSOX3014A Oscilloscope](Keysight%20DSOX3014A%20Scope/)
+- [HP 8711C VNA](HP8711C%20VNA/) (with an [adaptor](https://github.com/xyphro/UsbGpib) to convert the GPIB interface to a USB one)
 
 
 For other instruments, read their programmer's manual.
