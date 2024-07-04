@@ -1,6 +1,6 @@
 # fyp-gpib-pyvisa
 
-This repo contains scripts for automating specific tasks on various instruments. It communicates to instruments using [VISA](https://en.wikipedia.org/wiki/Virtual_instrument_software_architecture) which is a standard for communication compatible over several mediums including USB, [GPIB](https://en.wikipedia.org/wiki/GPIB), and TCP/IP.
+This repo contains scripts for automating specific tasks on various instruments. It communicates to instruments using [VISA](https://en.wikipedia.org/wiki/Virtual_instrument_software_architecture) which is a standard for communication compatible over [several mediums](https://pyvisa.readthedocs.io/en/latest/introduction/names.html) including USB, [GPIB](https://en.wikipedia.org/wiki/GPIB), RS-232, and TCP/IP.
 
 This uses the [pyvisa](https://pyvisa.readthedocs.io/en/latest/) Python library, with the [pyvisa-py](https://pyvisa.readthedocs.io/projects/pyvisa-py/en/latest/) VISA backend. Both a functional frontend and backend are required for communication.
 
