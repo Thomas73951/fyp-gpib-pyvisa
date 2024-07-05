@@ -1,12 +1,52 @@
 # fyp-gpib-pyvisa
 
+This repo contains scripts for automating specific tasks on various instruments. It communicates to instruments using [VISA](https://en.wikipedia.org/wiki/Virtual_instrument_software_architecture) which is a standard for communication compatible over [several mediums](https://pyvisa.readthedocs.io/en/latest/introduction/names.html) including USB, [GPIB](https://en.wikipedia.org/wiki/GPIB), RS-232, and TCP/IP.
+
+This uses the [pyvisa](https://pyvisa.readthedocs.io/en/latest/) Python library, with the [pyvisa-py](https://pyvisa.readthedocs.io/projects/pyvisa-py/en/latest/) VISA backend. Both a functional frontend and backend are required for communication.
+
+See [frontends and backends](#frontends-and-backends-for-visa) below for more information about VISA and the other options for controlling instruments with the standard.
 
 
-## Operation
+## Devices Used
 
-This currently has only been successfully tested on Linux.
+This includes syntax for use with the following (see links for code):
+- [Keysight DSOX3014A Oscilloscope](Keysight%20DSOX3014A%20Scope/)
+- [HP 8711C VNA](HP8711C%20VNA/) (used with an [adaptor](https://github.com/xyphro/UsbGpib) to translate the GPIB interface to a USB one, making it appear as a USB device)
+
+
+For other instruments, read their programmer's manual for reference when writing code for them.
+
+## Setup
+
+This section details the steps to successfully make a simple query - retrieving the device ID from the instrument.
+
+> [!WARNING]
+> So far communication using the pyvisa-py backend have only been successful on Linux with USB devices. This is likely due to USB rule issues. 
+>
+> Additionally, on some Linux installations, this may require editing udev rules for the device to appear correctly.
+
+### Frontends and Backends for VISA
+
+#### Frontends
+
+- [pyvisa](https://pyvisa.readthedocs.io/en/latest/) (used here)
+- [MATLAB Instrumentation toolbox](https://uk.mathworks.com/products/instrument.html)
+
+#### Backends
+
+-  [pyvisa-py](https://pyvisa.readthedocs.io/projects/pyvisa-py/en/latest/) (used here)
+- [Keysight](https://www.keysight.com/en/pd-1985909/io-libraries-suite/)
+- [National Instruments](https://www.ni.com/en/support/downloads/drivers/download.ni-visa.html) - [pyvisa installation notes](https://pyvisa.readthedocs.io/en/latest/faq/getting_nivisa.html)
+
+See [pyvisa installation notes](https://pyvisa.readthedocs.io/en/latest/introduction/getting.html) for more information on different backend options.
+
 
 ### Venv setup (linux)
+
+> [!NOTE]
+> There are no setup instructions for Windows or MAC OS currently.
+>
+> This is for USB instruments only.
 
 ```bash
 python -m venv .venv
@@ -19,15 +59,19 @@ Potentially also need: `psutil zeroconf`
 
 `pyUSB` needed for communicating this device, will find no devices without it.
 
+Other device types, such as GPIB, will likely need additional packages.
+
 ### Testing
 
-Look for devices:
+Use the console to look for devices with:
 
 ```bash
 pyvisa-shell
 list
 ```
-If no devices are listed the udev rules may need altering to allow communication.
+This will show all the instruments connected with their device ID's. At this point setup is complete if the instrument is shown. Note down the device ID and use it when writing scripts.
+
+However, if no devices are listed the udev rules may need altering to allow communication.
 
 Check packages installed correctly:
 
@@ -52,6 +96,8 @@ python <script>.py
 
 
 ### Full Setup Details
+
+These show what Python libraries are installed, and what `pyvisa-info` returns.
 
 Pip:
 
